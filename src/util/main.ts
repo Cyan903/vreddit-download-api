@@ -1,12 +1,12 @@
-import { Download } from "./types/videos";
-import { Response } from "./types/sources";
+import { Download } from "../types/videos";
+import { Response } from "../types/sources";
 import got from "got";
 import metascraper from "metascraper";
 import metascraperVideo from "metascraper-video";
 
 type Links = {
-    code: number
-    res: string | object
+    code: number;
+    res: string | object;
 };
 
 const scraper = metascraper([metascraperVideo()]);
@@ -32,7 +32,7 @@ function filterVideo(mpd: Response, id: string): object {
                     width: vid.$.width,
                     framerate: vid.$.frameRate,
                     url: `https://v.redd.it/${id}/${vid.BaseURL[0]}`,
-                }
+                };
             });
         } else if (data[vid].$.contentType == "audio") {
             audio = `https://v.redd.it/${id}/${data[vid].Representation[0].BaseURL[0]}`;
@@ -52,12 +52,13 @@ export async function getLinks(url: string): Promise<Links> {
         };
     }
 
-    const { statusCode, body }: {
-        statusCode: number,
-        body: unknown
-    } = await getXML(
-        `https://v.redd.it/${id}/DASHPlaylist.mpd`
-    );
+    const {
+        statusCode,
+        body,
+    }: {
+        statusCode: number;
+        body: unknown;
+    } = await getXML(`https://v.redd.it/${id}/DASHPlaylist.mpd`);
 
     if (statusCode != 200) {
         return {
@@ -68,6 +69,6 @@ export async function getLinks(url: string): Promise<Links> {
 
     return {
         code: 200,
-        res: filterVideo(body as Response, String(id))
-    }
+        res: filterVideo(body as Response, String(id)),
+    };
 }
