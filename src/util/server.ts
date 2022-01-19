@@ -1,10 +1,15 @@
-import express, { Router } from "express";
+import express from "express";
 import { getLinks } from "./main";
+import config from "../../config.json";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-
+router.get("/", (_, res) => {
+    res.json({
+        code: 200,
+        message: `API running on port ${config.port}.`,
+        repo: "https://github.com/CyanPiano/vreddit-download-api"
+    });
 });
 
 router.get("/r/:subreddit/:id", async (req, res) => {
