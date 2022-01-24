@@ -5,7 +5,7 @@ Created mainly for the frontend, but I thought this api would be better in it's 
 #### To build...
 ```
 $ pnpm run build
-$ pnpm run
+$ pnpm run app
 ```
 
 #### To install...
