@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import config from "../config.json";
 import server from "./util/server";
+import { init } from "./util/ffmpeg";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use((_, res) => {
     });
 });
 
-app.listen(config.port, () => {
+app.listen(config.port, async () => {
+    await init();
     process.stdout.write(`vreddit-api started on port ${config.port}\n\n`);
 });

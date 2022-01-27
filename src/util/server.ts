@@ -1,5 +1,6 @@
 import express from "express";
 import { getLinks } from "./main";
+import { combineFiles } from "./ffmpeg";
 import config from "../../config.json";
 
 const router = express.Router();
@@ -10,6 +11,19 @@ router.get("/", (_, res) => {
         message: `API running on port ${config.port}.`,
         repo: "https://github.com/CyanPiano/vreddit-download-api"
     });
+});
+
+router.get("/dl/:id/:quality", async (req, res) => {
+    // Leaving DASH_audio hardcoded in because I don't think it will ever be different.
+    const { id, quality } = req.params;
+
+    // TODO: Check if quality exists.
+    await combineFiles(
+        `https://v.redd.it/${id}/${quality}`,
+        `https://v.redd.it/${id}/DASH_audio.mp4`
+    );
+
+    res.send("DONE")
 });
 
 router.get("/r/:subreddit/:id", async (req, res) => {
