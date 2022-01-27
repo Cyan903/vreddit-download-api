@@ -8,6 +8,7 @@ const app = express();
 
 app.use(morgan("[:date[iso]] [:status] :method :url"));
 app.use("/", server);
+app.use("/public", express.static("public"));
 app.use((_, res) => {
     res.status(404).json({
         error: "Not found!",
