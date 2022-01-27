@@ -2,11 +2,9 @@ import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import fs from "fs";
 import got from "got";
 import Queue from "promise-queue";
+import config from "../../config.json";
 
-var maxConcurrent = 1;
-var maxQueue = Infinity;
-const queue = new Queue(maxConcurrent, maxQueue);
-
+const queue = new Queue(parseInt(config.maxConcurrent), parseInt(config.maxQueue));
 const ffmpeg = createFFmpeg();
 
 export const init = async () => {

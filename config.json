@@ -1,4 +1,8 @@
 {
     "port": 3000,
-    "corsOrigin": "http://localhost:8080"
+    "corsOrigin": "http://localhost:8080",
+    "queue": {
+        "maxConcurrent": 1,
+        "maxQueue": "Infinity"
+    }
 }
