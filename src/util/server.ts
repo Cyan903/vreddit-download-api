@@ -18,13 +18,18 @@ router.get("/dl/:id/:quality", async (req, res) => {
     const { id, quality } = req.params;
 
     // TODO: Check if quality exists.
-    await combineFiles(
+    const redirect = await combineFiles(
         `https://v.redd.it/${id}/${quality}`,
         `https://v.redd.it/${id}/DASH_audio.mp4`,
         id
     );
 
-    res.send("DONE")
+    if (redirect.code == 200) {
+        res.redirect("/public/output/" + redirect.res);
+        return;
+    }
+
+    res.status(redirect.code).send(redirect);
 });
 
 router.get("/r/:subreddit/:id", async (req, res) => {

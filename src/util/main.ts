@@ -52,10 +52,7 @@ export async function getLinks(url: string): Promise<Links> {
         };
     }
 
-    const {
-        statusCode,
-        body,
-    }: {
+    const { statusCode, body }: {
         statusCode: number;
         body: unknown;
     } = await getXML(`https://v.redd.it/${id}/DASHPlaylist.mpd`);
