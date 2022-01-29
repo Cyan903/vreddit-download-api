@@ -1,0 +1,19 @@
+{
+    "port": 3000,
+    "corsOrigin": "http://localhost:8080",
+    "queue": {
+        // Queue options for ffmpeg.
+        "maxConcurrent": 1,
+        "maxQueue": "Infinity"
+    },
+
+    // Rate limit per IP. This api doesn't require too many requests so a user should never hit this number.
+    "rate-limit": {
+        "windowMs": 3.6e6,
+        "max": 30   
+    },
+
+    // Redis options. Leave blank unless you want to provide a url.
+    "redis": {},
+    "redisExpireJSON": "60" // time in seconds for redis to cache the video and audio quality json.
+}

@@ -7,7 +7,9 @@
     / - Shows version and repo link.
     /r/[:Subreddit Name]/[:Post ID]
         - Returns video and audio downloads (if available). 
-
+    /dl/[:Video ID]/[:Quality]
+        - Only available when video and audio are included. Merges video and audio on server and returns
+        the merged video.
 
 #### Example Response:
 
