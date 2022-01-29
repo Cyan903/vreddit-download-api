@@ -23,17 +23,25 @@ async function getVideoID(vid: string): Promise<string | number> {
 function filterVideo(mpd: Response, id: string): object {
     const data = mpd.MPD.Period[0].AdaptationSet;
     let videos, audio;
-
+    
     for (let vid in data) {
         if (data[vid].$.contentType == "video") {
-            videos = data[vid].Representation.map((vid) => {
-                return {
-                    height: vid.$.height,
-                    width: vid.$.width,
-                    framerate: vid.$.frameRate,
-                    url: `https://v.redd.it/${id}/${vid.BaseURL[0]}`,
-                };
-            });
+            if (data[vid].Representation) {
+                videos = data[vid].Representation.map((vid) => {
+                    return {
+                        height: vid.$.height,
+                        width: vid.$.width,
+                        framerate: vid.$.frameRate,
+                        url: `https://v.redd.it/${id}/${vid.BaseURL[0]}`,
+                    };
+                });
+            } else {
+                videos = [{
+                    height: data[vid].$.height,
+                    width: data[vid].$.width,
+                    url: `https://v.redd.it/${id}/DASH_96.mp4`,
+                }]
+            }
         } else if (data[vid].$.contentType == "audio") {
             audio = `https://v.redd.it/${id}/${data[vid].Representation[0].BaseURL[0]}`;
         }

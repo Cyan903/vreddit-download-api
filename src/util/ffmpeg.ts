@@ -19,6 +19,22 @@ export async function combineFiles(video: string, audio: string, id: string): Pr
     const time = Date.now();
     const vid = `.video.${time}.dl.mp4`;
     const aud = `.audio.${time}.dl.mp4`;
+    let errResponse = false;
+
+    const vidCode = await got.get(video).catch(() => { errResponse = true });
+    const audCode = await got.get(audio).catch(() => { errResponse = true });
+
+    if (errResponse) {
+        return {
+            code: 404,
+            res: "Not found."
+        }
+    } else if (vidCode?.statusCode != 200 || audCode?.statusCode != 200) {
+        return {
+            code: vidCode?.statusCode || 500,
+            res: "An error has occurred."
+        }
+    }
     
     try {
         await queue.add(async () => {
