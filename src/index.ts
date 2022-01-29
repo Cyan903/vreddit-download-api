@@ -4,6 +4,7 @@ import rateLimit from "express-rate-limit";
 import config from "../config.json";
 import server from "./util/server";
 import { init } from "./util/ffmpeg";
+import { createRedis } from "./util/redis";
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use((_, res) => {
 
 app.listen(config.port, async () => {
     await init();
+    await createRedis();
     process.stdout.write(`vreddit-api started on port ${config.port}\n\n`);
 });

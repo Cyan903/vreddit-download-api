@@ -4,7 +4,7 @@ import got from "got";
 import metascraper from "metascraper";
 import metascraperVideo from "metascraper-video";
 
-type Links = {
+export type Links = {
     code: number;
     res: string | object;
 };
@@ -23,7 +23,7 @@ async function getVideoID(vid: string): Promise<string | number> {
 function filterVideo(mpd: Response, id: string): object {
     const data = mpd.MPD.Period[0].AdaptationSet;
     let videos, audio;
-    
+
     for (let vid in data) {
         if (data[vid].$.contentType == "video") {
             if (data[vid].Representation) {

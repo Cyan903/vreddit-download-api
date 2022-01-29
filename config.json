@@ -9,5 +9,8 @@
     "rate-limit": {
         "windowMs": 3.6e6,
         "max": 30   
-    }
+    },
+
+    "redis": {},
+    "redisExpireJSON": "60"
 }

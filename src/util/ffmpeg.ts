@@ -8,10 +8,10 @@ const queue = new Queue(parseInt(config.maxConcurrent), parseInt(config.maxQueue
 const ffmpeg = createFFmpeg();
 
 export const init = async () => {
-    process.stdout.write(`initializing ffmpeg.wasm...  `);
+    process.stdout.write("initializing ffmpeg.wasm...  ");
     await ffmpeg.load();
 
-    process.stdout.write(`done\n`);
+    process.stdout.write("done\n");
 };
 
 export async function combineFiles(video: string, audio: string, id: string): Promise<{ code: number; res: string; }> {

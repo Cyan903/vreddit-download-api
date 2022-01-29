@@ -1,6 +1,8 @@
 import express from "express";
+import { client } from "./redis";
 import { getLinks } from "./main";
 import { combineFiles } from "./ffmpeg";
+import { Links } from "./main";
 import config from "../../config.json";
 
 const router = express.Router();
@@ -41,11 +43,24 @@ router.get("/r/:subreddit/:id", async (req, res) => {
         return;
     }
 
-    const links = await getLinks(
-        `https://www.reddit.com/r/${req.params.subreddit}/comments/${req.params.id}`
-    );
+    const cache = `${req.params.subreddit}:${req.params.id}`;
+    const cacheResult = await client.get(cache);
 
-    res.status(links.code).json(links);
+    if (cacheResult !== null) {
+        const parsedCache: Links = JSON.parse(cacheResult);
+
+        res.status(parsedCache.code).json(parsedCache);
+    } else {
+        const links: Links = await getLinks(
+            `https://www.reddit.com/r/${req.params.subreddit}/comments/${req.params.id}`
+        );
+
+        await client.set(cache, JSON.stringify(links));
+        await client.expire(cache, parseInt(config.redisExpireJSON));
+    
+        res.status(links.code).json(links);
+    }
+
 });
 
 export default router;
