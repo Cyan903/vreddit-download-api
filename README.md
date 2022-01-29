@@ -2,10 +2,13 @@
 
 Created mainly for the frontend, but I thought this api would be better in it's own repo. Serves as a way to get direct links to video and audio downloads from `v.redd.it`. I might rewrite this in a different framework or language sometime...
 
+Now relies on redis for less requests to `reddit.com` and faster responses. Editing redis options can be done in the `config.json` file. For an explanation, look in the `config.sample.json` file.
+
 #### To setup...
 ```
 $ pnpm i
 $ mkdir public/output
+$ redis-server
 $ nano config.json
 $ pnpm start
 ```
