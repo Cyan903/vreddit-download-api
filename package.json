@@ -28,6 +28,7 @@
         "@ffmpeg/ffmpeg": "^0.10.1",
         "cors": "^2.8.5",
         "express": "^4.17.2",
+        "express-rate-limit": "^6.2.0",
         "got-xml": "^1.0.0",
         "morgan": "^1.10.0",
         "promise-queue": "^2.2.5"

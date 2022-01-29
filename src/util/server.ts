@@ -17,7 +17,6 @@ router.get("/dl/:id/:quality", async (req, res) => {
     // Leaving DASH_audio hardcoded in because I don't think it will ever be different.
     const { id, quality } = req.params;
 
-    // TODO: Check if quality exists.
     const redirect = await combineFiles(
         `https://v.redd.it/${id}/${quality}`,
         `https://v.redd.it/${id}/DASH_audio.mp4`,

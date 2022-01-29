@@ -4,5 +4,10 @@
     "queue": {
         "maxConcurrent": 1,
         "maxQueue": "Infinity"
+    },
+
+    "rate-limit": {
+        "windowMs": 3.6e6,
+        "max": 30   
     }
 }
