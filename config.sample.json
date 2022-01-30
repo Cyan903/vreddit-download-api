@@ -1,6 +1,6 @@
 {
     "port": 3000,
-    "corsOrigin": "http://localhost:8080",
+    "corsOrigin": "http://localhost:8080", // Port for frontend.
     "queue": {
         // Queue options for ffmpeg.
         "maxConcurrent": 1,

@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
+import cors from "cors";
 import config from "../config.json";
 import server from "./util/server";
 import { init } from "./util/ffmpeg";
@@ -14,6 +15,11 @@ app.use(rateLimit({
     max: parseInt(config.max),
     standardHeaders: true,
     legacyHeaders: false
+}));
+
+app.use(cors({
+    origin: config.corsOrigin,
+    optionsSuccessStatus: 204
 }));
 
 app.use("/", server);
